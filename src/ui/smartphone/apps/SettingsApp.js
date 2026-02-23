@@ -4,22 +4,23 @@
 export class SettingsApp {
     render() {
         return `
-            <div class="space-y-6">
-                <!-- Profil -->
-                <div class="flex items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/10">
-                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl">👤</div>
-                    <div>
-                        <div class="text-sm font-bold">NeoPlayer_01</div>
-                        <div class="text-[8px] text-white/40">ID: 8DE-AC1-EA</div>
+            <div class="space-y-4">
+                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <div class="text-[8px] text-white/40 uppercase mb-3">Compte Utilisateur</div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-xl">👤</div>
+                        <div>
+                            <div class="text-xs font-bold text-white">Citoyen #742</div>
+                            <div class="text-[8px] text-accent font-black uppercase tracking-widest">Niveau 1</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Liste options -->
-                <div class="space-y-1">
-                    ${this.renderOption('Mode Avion', 'Néant', '✈️')}
-                    ${this.renderOption('Wi-Fi', 'Connecté', '📡')}
-                    ${this.renderOption('Bluetooth', 'Oui', '⚡')}
-                    ${this.renderOption('Luminosité', '100%', '☀️')}
+                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <div class="text-[8px] text-white/40 uppercase mb-3">Préférences Système</div>
+                    ${this.renderToggle('Notifications', true)}
+                    ${this.renderToggle('Mode Sombre', true)}
+                    ${this.renderToggle('Son Spatial', false)}
                 </div>
 
                 <div class="mt-10 p-4 border border-red-500/30 rounded-xl text-center cursor-pointer hover:bg-red-500/10 transition-colors">

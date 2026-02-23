@@ -9,19 +9,20 @@ export class VibsApp {
 
     render() {
         return `
-            <div class="text-center mb-6 py-4">
-                <div class="text-4xl mb-2">🤳</div>
-                <div class="text-2xl font-black italic tracking-tighter" style="color: #ff3366">VIBS</div>
-            </div>
-
-            <div class="flex justify-around mb-8 p-4 bg-white/5 rounded-2xl border border-white/10">
-                <div class="text-center">
-                    <div class="text-lg font-bold" id="vibs-followers">${this.followers}</div>
-                    <div class="text-[8px] uppercase text-white/40">Followers</div>
+            <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between p-4 bg-gradient-to-br from-pink-500/20 to-purple-600/20 rounded-2xl border border-white/10">
+                    <div>
+                        <div class="text-xs font-black text-white italic">VIBS</div>
+                        <div class="text-[8px] text-white/50 uppercase tracking-widest">Abonnés</div>
+                    </div>
+                    <div class="text-2xl font-black text-white" id="vibs-followers">${this.followers}</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-lg font-bold">12</div>
-                    <div class="text-[8px] uppercase text-white/40">Posts</div>
+                <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <div>
+                        <div class="text-xs font-black text-white italic">POSTS</div>
+                        <div class="text-[8px] text-white/50 uppercase tracking-widest">Publiés</div>
+                    </div>
+                    <div class="text-2xl font-black text-white">12</div>
                 </div>
             </div>
 

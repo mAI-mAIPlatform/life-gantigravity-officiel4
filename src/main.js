@@ -10,6 +10,8 @@ import { InventoryManager } from './core/InventoryManager';
 // Smartphone Imports
 import { Smartphone } from './ui/smartphone/Smartphone';
 import { SmartphoneUI } from './ui/smartphone/SmartphoneUI';
+import { AdventureManager } from './core/AdventureManager';
+
 import { BankApp } from './ui/smartphone/apps/BankApp';
 import { ClockApp } from './ui/smartphone/apps/ClockApp';
 import { MapApp } from './ui/smartphone/apps/MapApp';
@@ -19,6 +21,8 @@ import { NeoHitsApp } from './ui/smartphone/apps/NeoHitsApp';
 import { SettingsApp } from './ui/smartphone/apps/SettingsApp';
 import { StoreApp } from './ui/smartphone/apps/StoreApp';
 import { VibsApp } from './ui/smartphone/apps/VibsApp';
+
+import { DialogueSystem } from './core/DialogueSystem';
 
 /**
  * Global UI Helper
@@ -38,6 +42,7 @@ class LifeApp {
   constructor() {
     this.engine = null;
     this.uiModules = {};
+    this.dialogueSystem = null;
     this.ui = {
       menu: document.getElementById('main-menu'),
       startBtn: document.getElementById('start-game'),
@@ -52,6 +57,13 @@ class LifeApp {
 
     // Initialize 3D Engine
     this.engine = new GameEngine('canvas-container');
+
+    // Dialogue System
+    this.dialogueSystem = new DialogueSystem();
+
+    // Adventure Manager
+    this.adventureManager = new AdventureManager(this.engine.scene, this.dialogueSystem);
+    this.adventureManager.init();
 
     // Initialize UI Modules
     this.uiModules.store = new Store(this.engine.economy);
@@ -79,7 +91,12 @@ class LifeApp {
     this.uiModules.inventory = new InventaireUI(this.inventoryManager);
 
     // Bind UI Events
-    this.ui.startBtn.addEventListener('click', () => this.startGame());
+    if (this.ui.startBtn) {
+      this.ui.startBtn.addEventListener('click', () => {
+        console.log("Start Button Clicked");
+        this.startGame();
+      });
+    }
 
     // Home Phone Button
     const phoneBtn = document.getElementById('home-phone-btn');
@@ -115,27 +132,32 @@ class LifeApp {
   }
 
   showDialogue(text) {
-    const diag = document.createElement('div');
-    diag.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-xl p-6 rounded-lg border border-accent/50 animate-fade-in text-white text-sm z-50 shadow-[0_0_30px_rgba(0,255,136,0.2)] max-w-md text-center italic';
-    diag.textContent = text;
-    document.body.appendChild(diag);
-    setTimeout(() => {
-      diag.classList.add('opacity-0', 'transition-opacity', 'duration-1000');
-      setTimeout(() => diag.remove(), 1000);
-    }, 3000);
+    // Obsolète - On utilise désormais le DialogueSystem
+    this.dialogueSystem.start({
+      name: "Citoyen",
+      role: "Civil",
+      text: text,
+      options: [{ text: "Continuer", callback: () => { } }]
+    });
   }
 
   startGame() {
     console.log('Game Started');
-    this.ui.menu.classList.add('opacity-0');
-    setTimeout(() => {
-      this.ui.menu.classList.add('hidden');
+    if (this.ui.menu) {
+      this.ui.menu.style.opacity = '0';
+      setTimeout(() => {
+        this.ui.menu.classList.add('hidden');
+        this.showLoading();
+      }, 500);
+    } else {
       this.showLoading();
-    }, 500);
+    }
   }
 
   showLoading() {
-    this.ui.loadingScreen.classList.remove('hidden');
+    if (this.ui.loadingScreen) {
+      this.ui.loadingScreen.classList.remove('hidden');
+    }
     this.engine.loadWorld().then(() => {
       console.log('World Assets Loaded.');
       this.finishLoading();

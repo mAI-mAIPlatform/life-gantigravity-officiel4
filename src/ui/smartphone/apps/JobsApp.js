@@ -5,15 +5,15 @@ export class JobsApp {
     render() {
         return `
             <div class="space-y-3">
-                ${this.renderJob('Livreur Urbain', 'Livre 3 colis dans le District Core', '💰 500 m\'s', '🔥 Difficile')}
-                ${this.renderJob('Testeur de Drift', 'Atteint 500pts de drift', '💰 200 m\'s', '🟢 Facile')}
-                ${this.renderJob('Maintenance Néon', 'Répare les enseignes du centre', '💰 800 m\'s', '🟠 Moyen')}
-                ${this.renderJob('Hack de Drone', 'Détourne un drone de sécurité', '💰 1,500 m\'s', '💀 Expert')}
+                <div class="text-[10px] font-bold text-accent italic mb-2">MISSIONS DISPONIBLES</div>
+                ${this.renderJob('Le Sentier de Néon', 'Chapitre 1', 'Kael')}
+                ${this.renderJob('Coupure de Courant', 'Chapitre 2', 'Sora')}
+                ${this.renderJob('Contrebande', 'Chapitre 3', 'Silas')}
             </div>
         `;
     }
 
-    renderJob(title, desc, reward, difficulty) {
+    renderJob(title, desc, contact) {
         return `
             <div class="p-4 bg-white/10 rounded-2xl border border-white/10 hover:bg-white/20 transition-colors cursor-pointer group">
                 <div class="flex justify-between items-start mb-2">

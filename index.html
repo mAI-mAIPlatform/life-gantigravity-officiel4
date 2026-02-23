@@ -22,8 +22,8 @@
 
                 <div class="flex flex-col space-y-4 w-72">
                     <button id="start-game"
-                        class="bg-accent hover:bg-accent/80 text-black font-bold py-3 px-8 rounded-sm transform transition hover:scale-105 active:scale-95 uppercase tracking-widest">
-                        Start Game
+                        class="bg-accent hover:bg-accent/80 text-black font-bold py-3 px-8 rounded-sm transform transition hover:scale-105 active:scale-95 uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,136,0.3)]">
+                        Commencer la Partie
                     </button>
                     <button onclick="toggleOverlay('lifepass-overlay')"
                         class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-sm transform transition hover:scale-105 active:scale-95 uppercase tracking-widest border border-white/20">
@@ -31,20 +31,20 @@
                     </button>
                     <button onclick="toggleOverlay('store-overlay')"
                         class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-sm transform transition hover:scale-105 active:scale-95 uppercase tracking-widest border border-white/20">
-                        Store
+                        Boutique
                     </button>
                     <button onclick="toggleOverlay('settings-overlay')"
                         class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-sm transform transition hover:scale-105 active:scale-95 uppercase tracking-widest border border-white/20">
-                        Settings
+                        Paramètres
                     </button>
                     <button onclick="toggleOverlay('credits-overlay')"
                         class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-sm transform transition hover:scale-105 active:scale-95 uppercase tracking-widest border border-white/20">
-                        Credits (m's)
+                        Crédits (m's)
                     </button>
                 </div>
 
                 <div class="mt-12 text-white/40 text-xs uppercase tracking-[0.3em]">
-                    v0.1 Pre-Alpha | Powered by Three.js & Vite
+                    v0.1 Pre-Alpha | Propulsé par Three.js & Vite
                 </div>
             </div>
         </div>
@@ -65,12 +65,14 @@
         <!-- Bottom HUD -->
         <div id="hud" class="fixed bottom-8 left-8 flex gap-4 items-end pointer-events-none">
             <div class="pointer-events-auto">
-                <button id="home-phone-btn" class="w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 flex items-center justify-center text-3xl shadow-2xl hover:bg-white/20 transition-all active:scale-90">
+                <button id="home-phone-btn"
+                    class="w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 flex items-center justify-center text-3xl shadow-2xl hover:bg-white/20 transition-all active:scale-90">
                     🏠
                 </button>
             </div>
-            
-            <div id="stats" class="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white flex gap-6">
+
+            <div id="stats"
+                class="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white flex gap-6">
                 <!-- stats content -->
             </div>
         </div>
@@ -81,7 +83,7 @@
                 class="bg-black/60 backdrop-blur border border-white/10 px-4 py-2 rounded text-accent font-bold credits-display shadow-lg">
                 0 m's
             </div>
-            <div class="text-[8px] text-white/30 uppercase tracking-[0.3em] font-bold text-right">NeoCity Live Protocol
+            <div class="text-[8px] text-white/30 uppercase tracking-[0.3em] font-bold text-right">Protocole NeoCity Live
             </div>
         </div>
 
@@ -90,7 +92,8 @@
             <div class="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
                 <div id="loading-bar" class="w-0 h-full bg-accent transition-all duration-300"></div>
             </div>
-            <div class="mt-4 text-accent text-xs uppercase tracking-widest animate-pulse">Loading City Assets...</div>
+            <div class="mt-4 text-accent text-xs uppercase tracking-widest animate-pulse">Chargement des actifs de la
+                ville...</div>
         </div>
     </div>
 

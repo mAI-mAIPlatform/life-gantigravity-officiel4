@@ -14,7 +14,15 @@ export class MapApp {
                     <div class="border border-white/20"></div><div class="border border-white/20"></div><div class="border border-white/20"></div><div class="border border-white/20"></div>
                 </div>
                 <!-- Player Marker -->
-                <div class="absolute top-1/2 left-1/2 w-3 h-3 bg-red-500 rounded-full shadow-[0_0_10px_red]"></div>
+            <div class="h-64 bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden flex items-center justify-center">
+                <div class="text-[10px] text-white/20 uppercase tracking-widest italic text-center px-4">Système de Géo-Localisation NeoCity</div>
+                
+                <div class="absolute bottom-2 right-2 flex flex-col gap-1">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                        <span class="text-[8px] text-white/60">Position Actuelle</span>
+                    </div>
+                </div>
             </div>
 
             <div class="space-y-3">
