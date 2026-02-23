@@ -30,8 +30,7 @@ import { DialogueSystem } from './core/DialogueSystem';
 window.toggleOverlay = (id) => {
   const el = document.getElementById(id);
   if (el) {
-    el.classList.toggle('hidden');
-    el.classList.toggle('flex');
+    el.classList.toggle('active');
   }
 };
 
@@ -45,15 +44,17 @@ class LifeApp {
     this.dialogueSystem = null;
     this.ui = {
       menu: document.getElementById('main-menu'),
-      startBtn: document.getElementById('start-game'),
-      loadingScreen: document.getElementById('loading-screen')
+      startBtn: document.getElementById('start-game-btn'),
+      loadingScreen: document.getElementById('loading-screen'),
+      hud: document.getElementById('hud'),
+      topHud: document.getElementById('top-hud')
     };
 
     this.init();
   }
 
   init() {
-    console.log('Life App Initializing...');
+    console.log('Initialisation de Life App...');
 
     // Initialize 3D Engine
     this.engine = new GameEngine('canvas-container');
@@ -93,7 +94,7 @@ class LifeApp {
     // Bind UI Events
     if (this.ui.startBtn) {
       this.ui.startBtn.addEventListener('click', () => {
-        console.log("Start Button Clicked");
+        console.log("Bouton Démarrer cliqué");
         this.startGame();
       });
     }
@@ -121,18 +122,17 @@ class LifeApp {
     window.addEventListener('npc-dialogue', (e) => this.showDialogue(e.detail.text));
 
     window.addEventListener('load', () => {
-      console.log('Life Platform Ready.');
+      console.log('Plateforme Life prête.');
     });
   }
 
   closeAllOverlays() {
-    Object.values(this.uiModules).forEach(mod => {
-      if (mod.isOpen) mod.toggle();
+    document.querySelectorAll('.overlay-premium.active').forEach(overlay => {
+      overlay.classList.remove('active');
     });
   }
 
   showDialogue(text) {
-    // Obsolète - On utilise désormais le DialogueSystem
     this.dialogueSystem.start({
       name: "Citoyen",
       role: "Civil",
@@ -142,13 +142,13 @@ class LifeApp {
   }
 
   startGame() {
-    console.log('Game Started');
+    console.log('Démarrage du jeu');
     if (this.ui.menu) {
       this.ui.menu.style.opacity = '0';
       setTimeout(() => {
         this.ui.menu.classList.add('hidden');
         this.showLoading();
-      }, 500);
+      }, 1000);
     } else {
       this.showLoading();
     }
@@ -157,12 +157,13 @@ class LifeApp {
   showLoading() {
     if (this.ui.loadingScreen) {
       this.ui.loadingScreen.classList.remove('hidden');
+      this.ui.loadingScreen.style.opacity = '1';
     }
     this.engine.loadWorld().then(() => {
-      console.log('World Assets Loaded.');
+      console.log('Actifs du monde chargés.');
       this.finishLoading();
     }).catch(err => {
-      console.error('Failed to load world:', err);
+      console.error('Échec du chargement du monde :', err);
     });
   }
 
@@ -171,13 +172,26 @@ class LifeApp {
     if (bar) bar.style.width = '100%';
 
     setTimeout(() => {
-      this.ui.loadingScreen.classList.add('opacity-0');
-      setTimeout(() => {
-        this.ui.loadingScreen.classList.add('hidden');
-        console.log('Life: NeoCity Rendered.');
-      }, 500);
-    }, 800);
+      if (this.ui.loadingScreen) {
+        this.ui.loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          this.ui.loadingScreen.classList.add('hidden');
+          console.log('Life: NeoCity Rendu.');
+
+          // Show HUD
+          if (this.ui.hud) {
+            this.ui.hud.classList.remove('opacity-0');
+            this.ui.hud.classList.add('opacity-100');
+          }
+          if (this.ui.topHud) {
+            this.ui.topHud.classList.remove('opacity-0');
+            this.ui.topHud.classList.add('opacity-100');
+          }
+        }, 500);
+      }
+    }, 1000);
   }
+}
 }
 
 // Global instance for debugging

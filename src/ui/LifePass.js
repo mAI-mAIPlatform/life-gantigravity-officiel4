@@ -21,24 +21,27 @@ export class LifePass {
         if (!overlay) return;
 
         overlay.innerHTML = `
-            <div class="bg-black/90 backdrop-blur-xl border border-white/10 p-8 rounded-lg w-full max-w-4xl h-[70vh] flex flex-col relative overflow-hidden">
-                <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
-                    <h2 class="text-4xl font-black italic tracking-tighter text-accent">LIFE PASS</h2>
+            <div class="glass-panel p-10 rounded-3xl w-full max-w-4xl h-[70vh] flex flex-col relative overflow-hidden shadow-2xl">
+                <div class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
+                    <div>
+                        <h2 class="text-5xl font-black italic tracking-tighter text-accent">LIFE PASS</h2>
+                        <div class="text-[10px] uppercase text-white/40 tracking-[0.5em] mt-1">Saison 1 : Nouveaux Départs</div>
+                    </div>
                     <div class="text-right">
-                        <div class="text-xs uppercase text-white/40 tracking-[0.5em] mb-1">Season 1: Neo Beginning</div>
-                        <div class="text-white font-bold">Level ${this.level} <span class="text-white/30 font-normal">| ${this.xp}/${this.maxXp} XP</span></div>
+                        <div class="text-white font-black text-2xl italic uppercase tracking-tighter">Niveau ${this.level}</div>
+                        <div class="text-white/30 text-[10px] uppercase font-bold tracking-widest">${this.xp} / ${this.maxXp} XP</div>
                     </div>
                 </div>
 
-                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-12">
-                    <div class="bg-accent h-full transition-all duration-1000" style="width: ${(this.xp / this.maxXp) * 100}%"></div>
+                <div class="w-full bg-white/5 h-3 rounded-full overflow-hidden mb-16 p-[2px] border border-white/5">
+                    <div class="bg-gradient-to-r from-accent to-emerald-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_#00ff88]" style="width: ${(this.xp / this.maxXp) * 100}%"></div>
                 </div>
 
-                <div class="flex-1 grid grid-cols-5 gap-4 overflow-x-auto pb-4">
+                <div class="flex-1 grid grid-cols-5 gap-6 overflow-x-auto pb-6 scrollbar-thin">
                     ${this.generateRewardTrack()}
                 </div>
 
-                <button id="close-lifepass" class="mt-8 text-white/40 hover:text-white uppercase tracking-widest text-xs transition">Back to Menu</button>
+                <button id="close-lifepass" class="mt-8 self-center px-12 py-3 border border-white/10 rounded-full text-white/40 hover:text-white hover:bg-white/5 uppercase tracking-[0.4em] text-[10px] font-black transition-all duration-300">Retour au Menu</button>
             </div>
         `;
 
@@ -47,12 +50,12 @@ export class LifePass {
 
     generateRewardTrack() {
         return this.rewards.map(reward => `
-            <div class="flex flex-col items-center ${reward.unlocked ? 'opacity-100' : 'opacity-40'} group">
-                <div class="w-full aspect-square bg-white/5 border ${reward.unlocked ? 'border-accent/50' : 'border-white/10'} rounded flex items-center justify-center mb-4 group-hover:bg-white/10 transition">
-                    <div class="text-[10px] text-white/50">${reward.level}</div>
+            <div class="flex flex-col items-center ${reward.unlocked ? 'opacity-100 scale-100' : 'opacity-30 scale-95'} group transition-all duration-500">
+                <div class="w-full aspect-square bg-gradient-to-br from-white/10 to-transparent border ${reward.unlocked ? 'border-accent/50 box-shadow-[0_0_20px_rgba(0,255,136,0.2)]' : 'border-white/10'} rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/10 transition-all shadow-xl">
+                    <div class="text-xl font-black italic text-white/20">${reward.level}</div>
                 </div>
-                <div class="text-xs font-bold text-center uppercase tracking-tighter">${reward.name}</div>
-                ${reward.unlocked ? '<div class="text-[8px] text-accent mt-1">UNLOCKED</div>' : ''}
+                <div class="text-[10px] font-black text-center uppercase tracking-widest text-white mb-2">${reward.name === 'Basic Skin' ? 'SKIN BASIQUE' : reward.name === 'Sports Car' ? 'VOITURE SPORT' : reward.name === 'Heavy Rifle' ? 'FUSIL LOURD' : reward.name === 'Penthouse Key' ? 'CLÉ PENTHOUSE' : reward.name}</div>
+                ${reward.unlocked ? '<div class="text-[8px] text-accent font-black tracking-[0.2em] border border-accent/30 px-2 py-1 rounded">DÉBLOQUÉ</div>' : '<div class="text-[8px] text-white/20 font-black tracking-[0.2em]">VERROUILLÉ</div>'}
             </div>
         `).join('');
     }
@@ -61,8 +64,7 @@ export class LifePass {
         this.isOpen = !this.isOpen;
         const overlay = document.getElementById('lifepass-overlay');
         if (overlay) {
-            overlay.classList.toggle('hidden', !this.isOpen);
-            overlay.classList.toggle('flex', this.isOpen);
+            overlay.classList.toggle('active', this.isOpen);
         }
     }
 }
