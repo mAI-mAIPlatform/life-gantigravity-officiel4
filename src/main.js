@@ -23,6 +23,10 @@ import { StoreApp } from './ui/smartphone/apps/StoreApp';
 import { VibsApp } from './ui/smartphone/apps/VibsApp';
 
 import { DialogueSystem } from './core/DialogueSystem';
+import { ErrorReporter } from './core/ErrorReporter';
+
+// Diagnostic System (Init first to catch all)
+window.reporter = new ErrorReporter();
 
 /**
  * Global UI Helper
@@ -191,7 +195,6 @@ class LifeApp {
       }
     }, 1000);
   }
-}
 }
 
 // Global instance for debugging
