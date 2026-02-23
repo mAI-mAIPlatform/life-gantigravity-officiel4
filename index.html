@@ -62,8 +62,21 @@
             class="hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-md flex flex-col items-center justify-center p-8">
         </div>
 
+        <!-- Bottom HUD -->
+        <div id="hud" class="fixed bottom-8 left-8 flex gap-4 items-end pointer-events-none">
+            <div class="pointer-events-auto">
+                <button id="home-phone-btn" class="w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 flex items-center justify-center text-3xl shadow-2xl hover:bg-white/20 transition-all active:scale-90">
+                    🏠
+                </button>
+            </div>
+            
+            <div id="stats" class="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white flex gap-6">
+                <!-- stats content -->
+            </div>
+        </div>
+
         <!-- HUD -->
-        <div id="hud" class="fixed top-8 right-8 z-20 flex flex-col items-end space-y-2 pointer-events-none">
+        <div class="fixed top-8 right-8 z-20 flex flex-col items-end space-y-2 pointer-events-none">
             <div
                 class="bg-black/60 backdrop-blur border border-white/10 px-4 py-2 rounded text-accent font-bold credits-display shadow-lg">
                 0 m's

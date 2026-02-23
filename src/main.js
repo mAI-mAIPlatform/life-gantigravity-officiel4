@@ -7,6 +7,19 @@ import { CreditsStore } from './ui/CreditsStore';
 import { InventaireUI } from './ui/InventaireUI';
 import { InventoryManager } from './core/InventoryManager';
 
+// Smartphone Imports
+import { Smartphone } from './ui/smartphone/Smartphone';
+import { SmartphoneUI } from './ui/smartphone/SmartphoneUI';
+import { BankApp } from './ui/smartphone/apps/BankApp';
+import { ClockApp } from './ui/smartphone/apps/ClockApp';
+import { MapApp } from './ui/smartphone/apps/MapApp';
+import { JobsApp } from './ui/smartphone/apps/JobsApp';
+import { NewsApp } from './ui/smartphone/apps/NewsApp';
+import { NeoHitsApp } from './ui/smartphone/apps/NeoHitsApp';
+import { SettingsApp } from './ui/smartphone/apps/SettingsApp';
+import { StoreApp } from './ui/smartphone/apps/StoreApp';
+import { VibsApp } from './ui/smartphone/apps/VibsApp';
+
 /**
  * Global UI Helper
  */
@@ -46,6 +59,21 @@ class LifeApp {
     this.uiModules.settings = new Settings();
     this.uiModules.credits = new CreditsStore();
 
+    // Smartphone Integration
+    this.smartphone = new Smartphone();
+    this.smartphoneUI = new SmartphoneUI(this.smartphone);
+
+    // Register Apps
+    this.smartphone.registerApp('Bank', new BankApp());
+    this.smartphone.registerApp('Clock', new ClockApp());
+    this.smartphone.registerApp('Map', new MapApp());
+    this.smartphone.registerApp('Jobs', new JobsApp());
+    this.smartphone.registerApp('News', new NewsApp());
+    this.smartphone.registerApp('NeoHits', new NeoHitsApp());
+    this.smartphone.registerApp('Settings', new SettingsApp());
+    this.smartphone.registerApp('Store', new StoreApp());
+    this.smartphone.registerApp('Vibs', new VibsApp());
+
     // Connect Inventory
     this.inventoryManager = new InventoryManager();
     this.uiModules.inventory = new InventaireUI(this.inventoryManager);
@@ -53,10 +81,23 @@ class LifeApp {
     // Bind UI Events
     this.ui.startBtn.addEventListener('click', () => this.startGame());
 
+    // Home Phone Button
+    const phoneBtn = document.getElementById('home-phone-btn');
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', () => this.smartphone.toggle());
+    }
+
     // Global Keyboard Controls
     window.addEventListener('keydown', (e) => {
       if (e.code === 'KeyI') this.uiModules.inventory.toggle();
-      if (e.code === 'Escape') this.closeAllOverlays();
+      if (e.code === 'KeyP') this.smartphone.toggle(); // P for Phone
+      if (e.code === 'Escape') {
+        if (this.smartphone.isOpen) {
+          this.smartphone.toggle();
+        } else {
+          this.closeAllOverlays();
+        }
+      }
     });
 
     // NPC Dialogue Listener
