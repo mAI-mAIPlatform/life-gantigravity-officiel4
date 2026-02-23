@@ -93,9 +93,7 @@ export class ErrorReporter {
             card.classList.add('translate-y-0', 'opacity-100');
         }, 10);
 
-        // Auto-suppression après 10 secondes si trop d'erreurs
-        if (this.ui.children.length > 5) {
-            this.ui.lastElementChild.remove();
-        }
+        // On ne supprime plus automatiquement les erreurs pour permettre une lecture longue.
+        // L'utilisateur doit cliquer sur "Ignorer" pour les enlever.
     }
 }
