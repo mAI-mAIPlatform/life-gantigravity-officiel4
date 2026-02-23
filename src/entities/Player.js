@@ -71,31 +71,31 @@ export class Player {
         this.currentVehicle = vehicle;
         this.mesh.visible = false;
         this.body.collisionResponse = false;
-        vehicle.isPlayerControlled = true;
-        console.log('Entered vehicle');
+
+        vehicle.isActive = true; // Activer les contrôles et les sons
+        console.log('Joueur monté dans le véhicule');
     }
 
     exitVehicle() {
         if (!this.currentVehicle) return;
 
-        const vehiclePos = this.currentVehicle.chassisBody.position;
+        const vehiclePos = this.currentVehicle.physics.body.position;
         this.body.position.set(vehiclePos.x + 3, vehiclePos.y + 1, vehiclePos.z);
         this.body.collisionResponse = true;
 
-        this.currentVehicle.isPlayerControlled = false;
-        this.currentVehicle.applyInputs(0, 0, 1); // Brake
+        this.currentVehicle.isActive = false; // Désactiver les contrôles
 
         this.isInVehicle = false;
         this.currentVehicle = null;
         this.mesh.visible = true;
-        console.log('Exited vehicle');
+        console.log('Joueur descendu du véhicule');
     }
 
     update() {
         if (this.isInVehicle && this.currentVehicle) {
             // Sync player position to vehicle
-            this.mesh.position.copy(this.currentVehicle.chassisBody.position);
-            this.body.position.copy(this.currentVehicle.chassisBody.position);
+            this.mesh.position.copy(this.currentVehicle.physics.body.position);
+            this.body.position.copy(this.currentVehicle.physics.body.position);
             this.body.velocity.set(0, 0, 0);
             return;
         }

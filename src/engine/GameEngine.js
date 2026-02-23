@@ -109,7 +109,10 @@ export class GameEngine {
         const deltaTime = Math.min(this.clock.getDelta(), 0.1);
 
         this.physics.update(deltaTime);
-        if (this.traffic) this.traffic.update();
+        if (this.traffic) {
+            this.traffic.update();
+            this.traffic.vehicles.forEach(car => car.update(deltaTime));
+        }
         if (this.npcs) {
             this.npcs.update(deltaTime);
             if (this.player && !this.player.isInVehicle) this.npcs.checkInteractions(this.player.mesh.position);
@@ -118,12 +121,8 @@ export class GameEngine {
 
         if (this.player) {
             if (this.player.isInVehicle && this.player.currentVehicle) {
-                const forward = this.player.input.forward ? 1 : (this.player.input.backward ? -1 : 0);
-                const steer = this.player.input.left ? 1 : (this.player.input.right ? -1 : 0);
-                this.player.currentVehicle.applyInputs(forward, steer, 0);
-
-                const targetPos = this.player.currentVehicle.chassisBody.position;
-                const camOffset = new THREE.Vector3(0, 10, 20).applyQuaternion(this.player.currentVehicle.chassisBody.quaternion);
+                const targetPos = this.player.currentVehicle.physics.body.position;
+                const camOffset = new THREE.Vector3(0, 10, 20).applyQuaternion(this.player.currentVehicle.physics.body.quaternion);
                 this.camera.position.lerp(targetPos.clone().add(camOffset), 0.1);
                 this.camera.lookAt(targetPos);
             } else {
