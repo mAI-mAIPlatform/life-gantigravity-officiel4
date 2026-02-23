@@ -25,9 +25,13 @@ export class RaycastVehicleSetup {
         const options = this.config.wheelOptions;
         const positions = this.config.wheelPositions;
 
+        // On évite de modifier l'objet options original et on n'utilise pas .copy()
+        // qui peut échouer si l'instance Cannon a été sérialisée/désérialisée.
         positions.forEach(pos => {
-            options.chassisConnectionPointLocal.copy(pos);
-            this.vehicle.addWheel(options);
+            this.vehicle.addWheel({
+                ...options,
+                chassisConnectionPointLocal: pos
+            });
         });
 
         this.vehicle.addToWorld(this.world);
