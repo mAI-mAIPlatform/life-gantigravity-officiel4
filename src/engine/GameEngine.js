@@ -40,7 +40,7 @@ export class GameEngine {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.shadowMap.type = THREE.PCFShadowMap;
         this.container.appendChild(this.renderer.domElement);
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);

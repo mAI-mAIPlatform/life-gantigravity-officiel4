@@ -14,6 +14,9 @@ export class SkySystem {
             sunset: new THREE.Color(0xff4500)
         };
 
+        // Initialize background to avoid null error on update
+        this.scene.background = new THREE.Color(this.colors.day);
+
         this.init();
     }
 
