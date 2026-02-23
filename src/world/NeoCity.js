@@ -1,30 +1,24 @@
 import * as THREE from 'three';
-import { QuartierTest } from '../ville/quartiers/test/index.js';
+import { CityManager } from '../map/cityManager.js';
 
 /**
  * NeoCity : Gestionnaire de la ville.
- * Désormais basé sur une architecture modulaire par quartiers.
+ * Désormais piloté par le CityManager pour une modularité totale.
  */
 export class NeoCity {
     constructor(scene, world) {
         this.scene = scene;
         this.world = world;
-        this.quartiers = [];
+        this.cityManager = new CityManager(this.scene, this.world);
     }
 
     /**
-     * Charge les quartiers de la ville.
+     * Charge la ville via le CityManager.
      */
     async load() {
-        console.log('Initialisation de NeoCity (Modulaire)...');
-
-        // Chargement du premier quartier de test
-        const quartierTest = new QuartierTest(this.scene, this.world);
-        quartierTest.init();
-
-        this.quartiers.push(quartierTest);
-
-        console.log('NeoCity Modulaire chargée avec succès.');
+        console.log('Initialisation de NeoCity (Via CityManager)...');
+        await this.cityManager.loadAllDistricts();
+        console.log('NeoCity chargée via CityManager.');
         return Promise.resolve();
     }
 }
