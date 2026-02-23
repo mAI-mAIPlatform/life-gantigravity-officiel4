@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --color-accent: #00ff88;
+}
+
 @layer base {
   body {
     @apply antialiased select-none;
@@ -8,14 +12,29 @@
 }
 
 @keyframes glow-pulse {
-  0% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
-  100% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.2); }
+  0% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
+  }
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-slide-up {
@@ -45,7 +64,7 @@ canvas {
 }
 
 #start-game-btn {
-  @apply bg-accent text-black px-12 py-4 font-black uppercase tracking-[0.3em] text-xs transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,255,136,0.6)] hover:scale-110 active:scale-90;
+  @apply bg-accent text-black px-12 py-4 font-black uppercase tracking-[0.3em] text-xs transition-all duration-500 hover:shadow-[0_0_40px_rgba(0, 255, 136, 0.6)] hover:scale-110 active:scale-90;
   animation: glow-pulse 2s infinite;
 }
 
@@ -59,15 +78,15 @@ canvas {
 
 /* Remove red bar if it exists */
 .red-bar {
-    display: none !important;
+  display: none !important;
 }
 
 .credits-display {
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 .glass-panel {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
