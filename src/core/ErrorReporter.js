@@ -35,9 +35,23 @@ export class ErrorReporter {
         // Optionnel : Intercepter console.error
         const originalConsoleError = console.error;
         console.error = (...args) => {
+            const formatArg = (arg) => {
+                if (arg instanceof Error) {
+                    return `${arg.name}: ${arg.message}\n${arg.stack}`;
+                }
+                if (typeof arg === 'object') {
+                    try {
+                        return JSON.stringify(arg, null, 2);
+                    } catch (e) {
+                        return String(arg);
+                    }
+                }
+                return String(arg);
+            };
+
             this.report({
                 type: 'Console Error',
-                message: args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ')
+                message: args.map(formatArg).join(' ')
             });
             originalConsoleError.apply(console, args);
         };
